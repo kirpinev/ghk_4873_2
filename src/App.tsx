@@ -247,12 +247,10 @@ export const App = () => {
     { value }: { value: number | string },
   ) => {
     setAmount(Number(value) / 100);
-    countSum(Number(value), month.number);
   };
 
   const handleSumSliderChange = ({ value }: { value: number }) => {
     setAmount(value);
-    countSum(Number(value), month.number);
   };
 
   const clamp = (value: number, min: number, max: number) =>
@@ -265,7 +263,7 @@ export const App = () => {
         .map((m) => ({
           ...m,
           paymentSum: countSum(amount, m.number),
-          text: `${Math.floor((amount + countSum(amount, m.number)) / m.number)}`,
+          text: `${Math.floor(amount / m.number)}`,
         })),
       {
         text: "Другой",
@@ -279,7 +277,7 @@ export const App = () => {
     const newStandardMonths = standardMonths.map((m) => ({
       ...m,
       paymentSum: countSum(amount, m.number),
-      text: `${Math.floor((amount + countSum(amount, m.number)) / m.number)}`,
+      text: `${Math.floor(amount / m.number)}`,
     }));
 
     const currentMonth =
@@ -509,10 +507,7 @@ export const App = () => {
                 view="primary-medium"
                 style={{ marginBottom: 0 }}
               >
-                {Math.floor(
-                  (amount + countSum(amount, month.number)) / month.number,
-                ).toLocaleString("ru-RU")}{" "}
-                ₽
+                {Math.floor(amount / month.number).toLocaleString("ru-RU")} ₽
               </Typography.Text>
             </div>
             <div style={{ display: "flex", gap: "0.5rem" }}>
